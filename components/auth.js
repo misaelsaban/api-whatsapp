@@ -43,9 +43,9 @@ function sendQr(res) {
                                     text: "${last_qr}",
                                     radius: 0.5, // 0.0 to 0.5
                                     ecLevel: "H", // L, M, Q, H
-                                    fill: "#536DFE", // foreground color
+                                    fill: "#000000", // foreground color
                                     background: null, // color or null for transparent
-                                    size: 256, // in pixels
+                                    size: 512, // in pixels
                                 }, container);
                             </script>
                         </body>
