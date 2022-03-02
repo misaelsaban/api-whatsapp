@@ -21,9 +21,7 @@ router.post('/sendmessage/:chatname', async (req, res) => {
     } else {
         client.getChats().then((data) => {
             data.forEach(chat => {
-                //console.log(chat)
-                if (chat.id.server === "g.us" && chat.id.user === chatname) {
-                    console.log('entroooo!')
+                if (chat.id.server === "g.us" && chat.name === chatname) {
                     client.sendMessage(chat.id._serialized, message).then((response) => {
                         if (response.id.fromMe) {
                             res.send({ status: 'success', message: `Message successfully send to ${chatname}` })
@@ -48,8 +46,7 @@ router.post('/sendimage/:chatname', async (req, res) => {
         if (base64regex.test(image)) { 
             client.getChats().then((data) => {
                 data.forEach(chat => {
-                    if (chat.id.server === "g.us" && chat.id.user === chatname) {
-                        console.log('entrooo')
+                    if (chat.id.server === "g.us" && chat.name === chatname) {
                         if (!fs.existsSync('./temp')) {
                             fs.mkdirSync('./temp');
                         }
@@ -68,7 +65,7 @@ router.post('/sendimage/:chatname', async (req, res) => {
             var path = './temp/' + image.split("/").slice(-1)[0]
             client.getChats().then((data) => {
                 data.forEach(chat => {
-                    if (chat.id.server === "g.us" && chat.id.user === chatname) {
+                    if (chat.id.server === "g.us" && chat.name === chatname) {
                         mediadownloader(image, path, () => {
                             let media = MessageMedia.fromFilePath(path);
                             client.sendMessage(chat.id._serialized, media, { caption: caption || "" }).then((response)=>{
